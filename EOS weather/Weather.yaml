@@ -1,0 +1,130 @@
+vendor:
+  name: Arista Networks
+  address: 5453 Great America Parkway, Santa Clara, CA 95054
+  phoneNumber: +1-408-547-5500
+  email: support@arista.com
+namespace: arista.Weather
+daemons:
+  WeatherDaemon:
+    exe: /usr/bin/true
+modes:
+  WeatherMode:
+    command:
+      syntax: management weather
+      noSyntax: management weather
+      data:
+        weather:
+          keyword:
+            help: Configure ACB weather feature
+    modeKey: mgmt-weather
+    daemon: WeatherDaemon
+schemas:
+  - &showWeatherLocationsSchema showWeatherLocationsSchema:
+    "$schema": "http://json-schema.org/draft-04/schema#"
+    type: object
+    properties:
+      url:
+        type: string
+      api_key:
+        type: string
+    required:
+      - url
+      - api_key
+  - &showWeatherLocationSchema showWeatherLocationSchema:
+    "$schema": "http://json-schema.org/draft-04/schema#"
+    type: object
+    properties:
+      temp:
+        type: number
+      feels_like:
+        type: number
+      temp_min:
+        type: number
+      temp_max:
+        type: number
+      pressure:
+        type: number
+      humidity:
+        type: number
+      sunrise:
+        type: string
+      sunset:
+        type: string
+      name:
+        type: string
+      id:
+        type: number
+    required:
+      - temp
+      - feels_like
+      - temp_min
+      - temp_max
+      - pressure
+      - humidity
+      - sunrise
+      - sunset
+      - name
+      - id
+commands:
+  configWeatherUrl:
+    syntax: url <url>
+    noSyntax: url [ <url> ]
+    mode: WeatherMode
+    data:
+      <url>:
+        regex:
+          regex: ".*"
+          help: "Openweather service URL"
+  configWeatherApiKey:
+    syntax: apikey <apikey>
+    noSyntax: apikey [ <apikey> ]
+    mode: WeatherMode
+    data:
+      <apikey>:
+        regex:
+          regex: ".*"
+          help: "Openweather API key"
+  configWeatherLocationsFile:
+    syntax: locationsfile <locationsfile>
+    noSyntax: locationsfile [ <locationsfile> ]
+    mode: WeatherMode
+    data:
+      <locationsfile>:
+        regex:
+          regex: ".*"
+          help: "Openweather locations file"
+  showWeatherLocationId:
+    syntax: show weather location id <id>
+    mode: Unprivileged
+    outputSchema: *showWeatherLocationSchema
+    data:
+      id:
+        keyword:
+          help: filter by id
+      <id>:
+        regex:
+          regex: ".*"
+          help: "id filter"
+  showWeatherLocationName:
+    syntax: show weather location name <name>
+    mode: Unprivileged
+    outputSchema: *showWeatherLocationSchema
+    data:
+      name:
+        keyword:
+          help: filter by name
+      <name>:
+        regex:
+          regex: ".*"
+          help: "name filter"
+  showWeatherLocations:
+    syntax: show weather locations
+    mode: Unprivileged 
+    outputSchema: *showWeatherLocationsSchema
+    data:
+      weather: 
+        keyword:
+          help: ACB weather feature
+      locations: 
+        keyword:
+          help: locations listing
