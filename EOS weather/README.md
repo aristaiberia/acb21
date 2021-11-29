@@ -13,6 +13,8 @@ The implementation is done with 2 files:
 
 Once both files are in the right place you should restart ConfigAgent. One way to do it is by running ```bash sudo killall ConfigAgent```
 
+The original locations.json file can be downloaded [here](http://bulk.openweathermap.org/sample/city.list.json.gz) or you can use the locations.json file in this repo that has removed locations with unicode chars.
+
 To use the [Openweather API](https://openweathermap.org/api) you should create a free acount.
 
 With EOS weather you will have some new CLI commands, like ```management weather``` and ```show weather```:
