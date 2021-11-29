@@ -88,4 +88,4 @@ humidity 79 %
 
 You can also use the API to call them like any other Arista EOS command:
 
-![API usage](https://github.com/aristaiberia/acb21/EOS%20weather/images/API.png)
+![API usage](https://github.com/aristaiberia/acb21/blob/main/EOS%20weather/images/API.png)
